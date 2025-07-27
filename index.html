@@ -14,6 +14,10 @@
   </div>
 
   <script>
+    <h1>Daily Joker</h1>
+<div id="joker">Loading...</div>
+<button onclick="fetchJoker()">Get New Joke</button>
+
     async function fetchJoker() {
       try {
         const today = new Date().toISOString().slice(0, 10);
