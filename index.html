@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily JOKER</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+  <div class="max-w-xl text-center p-6 bg-gray-900 rounded-2xl shadow-2xl">
+    <h1 class="text-4xl font-bold text-red-500 mb-4">🃏 JOKER of the Day</h1>
+    <p id="jokerContent" class="text-lg leading-relaxed animate-pulse">Loading today's mind game...</p>
+    <p class="mt-6 text-sm text-gray-400">Come back tomorrow for a new card...</p>
+  </div>
+
+  <script>
+    async function fetchJoker() {
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        const cacheKey = "joker_" + today;
+
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+          document.getElementById("jokerContent").textContent = JSON.parse(cached);
+          return;
+        }
+
+        const response = await fetch("/api/gpt");
+        const data = await response.json();
+
+        const joke = data.joke || "The JOKER got caught bluffing.";
+        document.getElementById("jokerContent").textContent = joke;
+        localStorage.setItem(cacheKey, JSON.stringify(joke));
+      } catch (err) {
+        console.error(err);
+        document.getElementById("jokerContent").textContent = "The JOKER is missing. Try again later.";
+      }
+    }
+
+    fetchJoker();
+  </script>
+</body>
+</html>
