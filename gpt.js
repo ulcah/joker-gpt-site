@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.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;
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
