@@ -1,5 +1,7 @@
-export default async function handler(req, res) {
-  const prompt = `You are the JOKER — a mischievous poker coach who gives one clever riddle, brainteaser, or trick question per day to sharpen players. Keep it under 300 characters.`;
+const fetch = require('node-fetch');
+
+module.exports = async function (req, res) {
+  const prompt = `You are the JOKER — a mischievous poker coach who gives one cleverly formed poker situation per day to sharpen players. It should include what cards you have, whats on the board, and who has bet/checked/folded leading up to your turn. Keep it under 300 characters.`;
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -24,4 +26,4 @@ export default async function handler(req, res) {
     console.error("GPT API error:", err);
     res.status(500).json({ joke: "The Joker ran into a problem. Try again later." });
   }
-}
+};
