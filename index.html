@@ -29,7 +29,7 @@
           return;
         }
 
-        const response = await fetch("/api/gpt");
+        const response = await fetch("/api/gpt.js");
         const data = await response.json();
 
         const joke = data.joke || "The JOKER got caught bluffing.";
